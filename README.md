@@ -2,6 +2,7 @@
 
 ### Prerequisitos
 
+- Tener instalado el repositorio de frontend y corriendo (ver README de ese repo para tenerlo en tu ambiente local)
 - Tener instalado python
 - Tener instalado pipenv
 - Tener instalado geckodriver o algun otro webdriver como chromedirver
