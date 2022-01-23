@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
-import poms.Page as page
+from poms.Page import PageNotSignedIn
 
-class SignInPage(page.Page):
+class SignInPage(PageNotSignedIn):
     
     def __init__(self, browser):
         

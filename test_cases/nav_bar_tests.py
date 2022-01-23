@@ -19,6 +19,12 @@ class NavBarTests(unittest.TestCase):
         
         self.ser = Service(self.service)
         self.browser = webdriver.Chrome(service = self.ser)
+    
+    def test_NavBar_links_OK(self):
+        '''
+        Go through every subpage and test that all links from the 
+        navigation bar(except its own) work properly
+        '''
         
         # List of all pages
         self.pages = [HomePage, HallOfFamePage, AboutPage,
@@ -26,12 +32,7 @@ class NavBarTests(unittest.TestCase):
         # List of all addrss sufixes
         self.sub_addresses = ['', 'halloffame', 'about',
                               'players', 'sign-in', 'sign-in']
-    
-    def test_NavBar_links_OK(self):
-        '''
-        Go through every subpage and test that all links from the 
-        navigation bar(except its own) work properly
-        '''
+        
         for PageClass, sub_addr in zip(self.pages, self.sub_addresses):
             
             # Go to subpage's address

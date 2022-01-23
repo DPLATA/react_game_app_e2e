@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
-import poms.Page as page
+from poms.Page import PageSignedIn
 
-class DashboardPage(page.Page):
+class DashboardPage(PageSignedIn):
     '''
     Dashboard page must be initialized from log in page
     '''
