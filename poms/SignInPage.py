@@ -59,4 +59,16 @@ class RegisterPage(SignInPage):
     def confirm_password(self, password):
         self.password_box2.send_keys(password)
         
-    # methods for registering
+    def register_user(self, name, nickname, password):
+        self.type_name(name)
+        self.type_nickname(nickname)
+        self.type_password(password)
+        self.confirm_password(password)
+        self.click_submit()
+    
+    def register_user_diff_passwords(self, name, nickname, password):
+        self.type_name(name)
+        self.type_nickname(nickname)
+        self.type_password(password)
+        self.confirm_password(password + ' ')
+        self.click_submit()

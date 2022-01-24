@@ -14,7 +14,7 @@ class PlayersPage():
         
         
         
-        # podría usar .text para identificarlos
+        # podría usar find_elements (con *) y .text para identificar los botones
         # self.slot1_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/div[1]/button[3]')
         # self.slot2_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/div[1]/button[4]')
         # self.slot3_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/div[1]/button[5]')
@@ -63,70 +63,3 @@ class PlayersPageSignedIn(PageSignedIn, PlayersPage):
         PageSignedIn.__init__(self, browser)
         PlayersPage.__init__(self, browser)
 
-# # %%
-
-# from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-
-# from poms.SignInPage import LoginPage
-# from poms.DashboardPage import DashboardPage
-
-# service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
-# addr = 'http://localhost:3000/players'
-# ser = Service(service)
-# browser = webdriver.Chrome(service = ser)
-# browser.get(addr)
-
-# playersPageNotSignedIn = PlayersPageNotSignedIn(browser)
-# playersPageNotSignedIn.click_signIn()
-
-# loginPage = LoginPage(browser)
-# nickname = 'Dolf0'
-# password = 'BnwizXuDwmP105'
-# loginPage.log_in(nickname, password)
-
-# # wait for page to load
-# browser.implicitly_wait(10)
-
-# dashboardPage = DashboardPage(browser)
-# dashboardPage.click_players()
-
-# # wait for page to load
-# browser.implicitly_wait(10)
-
-# playersPageSignedIn = PlayersPageSignedIn(browser)
-
-# playersPageSignedIn.click_dashboard()
-
-
-
-
-# %% prueba de creacion
-
-# # YA NO SIRVE PORQUE HICE SUBCLASES DE SIGN IN Y NOT SIGNED IN
-# from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-
-# from poms.SignInPage import LoginPage
-# from poms.DashboardPage import DashboardPage
-
-# service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
-# addr = 'http://localhost:3000'
-# ser = Service(service)
-# browser = webdriver.Chrome(service = ser)
-# browser.get('http://localhost:3000/players')
-
-# # wait for page to load
-# browser.implicitly_wait(10)
-
-# playersPage = PlayersPage(browser)
-
-# # wait for page to load
-# browser.implicitly_wait(10)
-
-# playersPage.select_status('bronce')
-# playersPage.click_submit()
-
-        
-        
-        

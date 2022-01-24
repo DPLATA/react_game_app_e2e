@@ -21,23 +21,3 @@ class HomePageSignedIn(PageSignedIn, HomePage):
     def __init__(self, browser):
         PageSignedIn.__init__(self, browser)
         HomePage.__init__(self, browser)
-
-# # %%
-# from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-
-# from poms.SignInPage import LoginPage
-# from poms.DashboardPage import DashboardPage
-
-# service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
-# addr = 'http://localhost:3000'
-# ser = Service(service)
-# browser = webdriver.Chrome(service = ser)
-# browser.get('http://localhost:3000/')
-
-# homePageNotSignedIn = HomePageNotSignedIn(browser)
-# homePageNotSignedIn.click_get_started()
-
-
-# browser.back()
-# homePageNotSignedIn.click_signIn()

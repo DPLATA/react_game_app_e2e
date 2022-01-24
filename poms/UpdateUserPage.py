@@ -1,4 +1,7 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from poms.Page import PageSignedIn
 
 class EditProfilePage(PageSignedIn):
@@ -18,10 +21,15 @@ class EditProfilePage(PageSignedIn):
         self.avatar_btn_5 = self.browser.find_element(By.XPATH, '//*[@id="https://robohash.org/nihilconsequaturet.png?size=300x300&set=set1"]')
         self.update_btn = self.browser.find_element(By.XPATH, '//*[@id="update-from"]/button')
         
+        self.profile_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/a')
+        
+        
     def type_name(self, name):
+        # element = WebDriverWait(browser, 10).until(
+        #     EC.presence_of_element_located(By.XPATH, '//*[@id="update-from"]/input[1]'))
         self.name_box.clear()
         self.name_box.send_keys(name)
-    
+        
     def type_nickname(self, nickname):
         self.nickname_box.clear()
         self.nickname_box.send_keys(nickname)
@@ -43,70 +51,96 @@ class EditProfilePage(PageSignedIn):
         self.type_nickname(nickname)
         self.click_avatar(avatar_no)
         self.click_update()
-
-class UpdateUserPage(EditProfilePage):
-    '''
-    Update user page must be initialized from dashboard page
-    '''
-    def __init__(self, browser):
-        super().__init__(browser)    
-        self.profile_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/a')
         
     def click_profile(self):
         self.profile_btn.click()
-    
 
-
-class UpdateSuccesfulPage(EditProfilePage):
-    '''
-    Initialized after updating user
-    '''
-    def __init__(self, browser):
+# class UpdateUserPage(EditProfilePage):
+#     '''
+#     Update user page must be initialized from dashboard page
+#     '''
+#     def __init__(self, browser):
+#         super().__init__(browser)    
+#         self.profile_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/a')
         
-        super().__init__(browser)
-        self.profile_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/a')
+#     def click_profile(self):
+#         self.profile_btn.click()
     
-    def click_profile(self):
-        self.profile_btn.click()
+
+
+# class UpdateSuccesfulPage(EditProfilePage):
+#     '''
+#     Initialized after updating user
+#     '''
+#     def __init__(self, browser):
+        
+#         super().__init__(browser)
+#         self.profile_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/a')
+    
+#     def click_profile(self):
+#         self.profile_btn.click()
 
 # prueba de creacion
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
 
-from poms.SignInPage import LoginPage
-from poms.DashboardPage import DashboardPage
+# from poms.SignInPage import LoginPage
+# from poms.DashboardPage import DashboardPage
 
-service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
-addr = 'http://localhost:3000'
-ser = Service(service)
-browser = webdriver.Chrome(service = ser)
-browser.get('http://localhost:3000/sign-in')
+# service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+# addr = 'http://localhost:3000'
+# ser = Service(service)
+# browser = webdriver.Chrome(service = ser)
+# browser.get('http://localhost:3000/sign-in')
 
-nickname = 'Dolf0'
-password = 'BnwizXuDwmP105'
+# nickname = 'Dolf0'
+# password = 'BnwizXuDwmP105'
 
-loginPage = LoginPage(browser)
-loginPage.log_in(nickname, password)
+# loginPage = LoginPage(browser)
+# loginPage.log_in(nickname, password)
 
-# wait for page to load
-browser.implicitly_wait(10)
-
-dashboardPage = DashboardPage(browser)
-dashboardPage.click_update_user()
-
-updateUserPage = UpdateUserPage(browser)
-
-# EL PROFILE BUTTON NO SIRVE DESPUES DE HACER CLICK EN EL UPDATE BUTTON
-# updateUserPage.update_user('Alysia', 'Dolf0', 4)
-updateUserPage.click_profile()
-
-# updateSuccesfulPage = UpdateSuccesfulPage(browser)
-
+# # wait for page to load
 # browser.implicitly_wait(10)
-# updateSuccesfulPage.update_user('Alysia', 'Dolf0', 3)
 
+# dashboardPage = DashboardPage(browser)
+# dashboardPage.click_update_user()
+
+# editProfilePage = EditProfilePage(browser)
+
+# # wait for page to load
 # browser.implicitly_wait(10)
-# updateSuccesfulPage.click_profile()
+
+# editProfilePage.update_user('Alysia', 'Dolf0', 4)
+
+# # wait for page to load
+# browser.implicitly_wait(20)
+
+# editProfilePage.update_user('Alysia', 'Dolf0', 2)
+
+# # wait for page to load
+# browser.implicitly_wait(10)
+
+# editProfilePage.click_profile()
+
+# %%
+# updateUserPage = UpdateUserPage(browser)
+
+# # EL PROFILE BUTTON NO SIRVE DESPUES DE HACER CLICK EN EL UPDATE BUTTON
+# updateUserPage.update_user('Alysia', 'Dolf0', 3)
+# # updateUserPage.update_user('Alysia', 'Dolf0', 1)
+
+# # wait for page to load
+# browser.implicitly_wait(20)
+
+# updateUserPage.click_profile()
+
+# # updateSuccesfulPage = UpdateSuccesfulPage(browser)
+
+# # browser.implicitly_wait(10)
+# # updateSuccesfulPage.update_user('Alysia', 'Dolf0', 3)
+
+# # browser.implicitly_wait(10)
+# # updateSuccesfulPage.click_profile()
 
 
 
