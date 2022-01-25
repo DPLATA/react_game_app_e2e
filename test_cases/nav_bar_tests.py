@@ -24,7 +24,6 @@ class NavBarTests(unittest.TestCase):
         Go through every subpage and test that all links from the 
         navigation bar(except its own) work properly
         '''
-        
         # List of all pages
         self.pages = [HomePageNotSignedIn, HallOfFamePageNotSignedIn,
                       AboutPageNotSignedIn, PlayersPageNotSignedIn,
@@ -135,7 +134,6 @@ class NavBarTests(unittest.TestCase):
         self.dashboardPage = DashboardPage(self.browser)
         self.dashboardPage.click_logout()
         self.assertIn(self.addr, self.browser.current_url)
-        
     
     def tearDown(self):
         self.browser.quit()
