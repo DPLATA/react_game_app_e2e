@@ -1,11 +1,19 @@
 from selenium.webdriver.common.by import By
-import poms.Page as page
+from poms.Page import PageNotSignedIn, PageSignedIn
 
-class HallOfFamePage(page.Page):
+class HallOfFamePage():
     
     def __init__(self, browser):
-        
-        super().__init__(browser)
+        pass
 
-# Nothing yet
+class HallOfFamePageNotSignedIn(PageNotSignedIn, HallOfFamePage):
+    
+    def __init__(self, browser):
+        PageNotSignedIn.__init__(self, browser)
+        HallOfFamePage.__init__(self, browser)
 
+class HallOfFamePageSignedIn(PageSignedIn, HallOfFamePage):
+    
+    def __init__(self, browser):
+        PageSignedIn.__init__(self, browser)
+        HallOfFamePage.__init__(self, browser)

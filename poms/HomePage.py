@@ -1,13 +1,23 @@
 from selenium.webdriver.common.by import By
-import poms.Page as page
+from poms.Page import PageNotSignedIn, PageSignedIn
 
-class HomePage(page.Page):
+class HomePage():
     
     def __init__(self, browser):
-        
-        super().__init__(browser)
+
         self.get_started_btn = browser.find_element(By.XPATH, '//*[@id="Sign-in Button "]')
     
     def click_get_started(self):
         self.get_started_btn.click()
 
+class HomePageNotSignedIn(PageNotSignedIn, HomePage):
+    
+    def __init__(self, browser):
+        PageNotSignedIn.__init__(self, browser)
+        HomePage.__init__(self, browser)
+
+class HomePageSignedIn(PageSignedIn, HomePage):
+    
+    def __init__(self, browser):
+        PageSignedIn.__init__(self, browser)
+        HomePage.__init__(self, browser)
