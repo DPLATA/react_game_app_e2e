@@ -48,7 +48,6 @@ class SignInTests(unittest.TestCase):
         '''
         # Load user data
         data_path = r'C:\Users\Rafael\Documents\Projects\Universe Gods\react_game_app_e2e'
-        
         self.user_data1 = json.load(open(os.path.join(data_path, 'MOCK_DATA.json')))
         self.user_data2 = json.load(open(os.path.join(data_path, 'MOCK_DATA-2.json')))
         self.user_data3 = json.load(open(os.path.join(data_path, 'MOCK_DATA-3.json')))

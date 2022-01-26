@@ -17,4 +17,3 @@ class AboutPageSignedIn(PageSignedIn, AboutPage):
     def __init__(self, browser):
         PageSignedIn.__init__(self, browser)
         AboutPage.__init__(self, browser)
-        
