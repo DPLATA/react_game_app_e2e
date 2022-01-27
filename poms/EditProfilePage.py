@@ -4,7 +4,6 @@ from poms.Page import PageSignedIn
 class EditProfilePage(PageSignedIn):
     
     def __init__(self, browser):
-        
         super().__init__(browser)
         self.name_box = self.browser.find_element(By.XPATH, '//*[@id="update-from"]/input[1]')
         self.nickname_box = self.browser.find_element(By.XPATH, '//*[@id="update-from"]/input[2]')

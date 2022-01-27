@@ -11,15 +11,12 @@ class PlayersPage():
         self.status_select = Select(self.browser.find_element(By.XPATH, '//*[@id="status-select"]'))
         self.nickname_box = self.browser.find_element(By.XPATH, '//*[@id="nickname-input"]')
         self.submit_btn = self.browser.find_element(By.ID, 'submit-query-btn')
-        
         self.nav_buttons = self.browser.find_elements(By.XPATH,'/html/body/div/main/div/div/div[3]/*')
         
         self.prev_btn = self.nav_buttons[0]
         self.nav_buttons.pop(0)
         self.next_btn = self.nav_buttons[-1]
         self.nav_buttons.pop(-1)
-        
-        # Assign each button correctly            
         if len(self.nav_buttons) > 5:
             for btn in self.nav_buttons:
                 if btn.text == '...':
@@ -27,10 +24,8 @@ class PlayersPage():
         
         rows = self.browser.find_elements(By.XPATH, '/html/body/div/main/div/div/div[1]/table/tbody/*')
         self.table_data = []
-        
         for row in rows:
             row = row.text.split()
-            
             self.table_data.append({'Nickname': row[0], 'Name': row[1],
                                     'Ranking': row[2], 'Status': row[3],
                                     'Player ID': row[4]})
