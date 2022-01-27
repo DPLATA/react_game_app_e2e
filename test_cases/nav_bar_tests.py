@@ -2,7 +2,7 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import os
-from poms.HomePage import HomePageNotSignedIn
+from poms.HomePage import HomePageNotSignedIn, HomePageSignedIn
 from poms.HallOfFamePage import HallOfFamePageNotSignedIn
 from poms.AboutPage import AboutPageNotSignedIn
 from poms.PlayersPage import PlayersPageNotSignedIn
@@ -12,128 +12,111 @@ from poms.DashboardPage import DashboardPage
 class NavBarTests(unittest.TestCase):
     
     def setUp(self):
-        
-        # Initialize browser driver
-        self.service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        ser = Service(service)
+        self.browser = webdriver.Chrome(service = ser)
         self.addr = 'http://localhost:3000'
-        self.ser = Service(self.service)
-        self.browser = webdriver.Chrome(service = self.ser)
+        
+    def test_univ_gods_logo_link(self):
+        '''
+        Universe Gods logo takes user to homepage
+        '''
+        self.browser.get(os.path.join(self.addr, 'sign-in'))
+        page = LoginPage(self.browser)
+        page.click_univ_gods()
+        page = HomePageNotSignedIn(self.browser)
+        self.assertIsInstance(page, HomePageNotSignedIn)
     
-    def test_NavBar_links_not_signed_in(self):
+    def test_globe_icon_link(self):
         '''
-        Go through every subpage and test that all links from the 
-        navigation bar(except its own) work properly
+        Globe icon takes user to homepage
         '''
-        # List of all pages
-        self.pages = [HomePageNotSignedIn, HallOfFamePageNotSignedIn,
-                      AboutPageNotSignedIn, PlayersPageNotSignedIn,
-                      LoginPage, RegisterPage]
-        # List of all addrss sufixes
-        self.sub_addresses = ['', 'hof', 'about', 'players',
-                              'sign-in', 'sign-in']
-        
-        for self.PageClass, self.sub_addr in zip(self.pages, self.sub_addresses):
-            
-            # Go to subpage's address
-            self.subpage_addr = os.path.join(self.addr, self.sub_addr)
-            self.browser.get(self.subpage_addr)
-            # Wait for page to load all elements
-            self.browser.implicitly_wait(5)
-            
-            # Create page object
-            self.page = self.PageClass(self.browser)
-            
-            # Check "home" navigation bar link
-            if type(self.page) != HomePageNotSignedIn:
-                self.page.click_home()
-                self.assertIn(self.addr, self.browser.current_url)
-                self.browser.back()
-            
-            # Check "hall of fame" navigation bar link
-            if type(self.page) != HallOfFamePageNotSignedIn:
-                self.page.click_hall_of_fame()
-                self.assertIn('hof', self.browser.current_url)
-                self.browser.back()
-            
-            # Check "about" navigation bar link
-            if type(self.page) != AboutPageNotSignedIn:
-                self.page.click_about()
-                self.assertIn('about', self.browser.current_url)
-                self.browser.back()
-            
-            # Check players navigation bar link
-            if type(self.page) != PlayersPageNotSignedIn:
-                self.page.click_players()
-                self.assertIn('players', self.browser.current_url)
-                self.browser.back()
-            
-            # Check sign-in navigation bar link
-            if (type(self.page) != LoginPage) and (type(self.page) != RegisterPage):
-                self.page.click_signIn()
-                self.assertIn('sign-in', self.browser.current_url)
-                self.browser.back()
-            
-            # Check Universe Gods navigation bar link
-            if type(self.page) != HomePageNotSignedIn:
-                self.page.click_univ_gods()
-                self.assertIn(self.addr, self.browser.current_url)
-                self.browser.back()
-            
-            # Check globe navigation bar link
-            if type(self.page) != HomePageNotSignedIn:
-                self.page.click_globe()
-                self.assertIn(self.addr, self.browser.current_url)
-                self.browser.back()
+        self.browser.get(os.path.join(self.addr, 'sign-in'))
+        page = LoginPage(self.browser)
+        page.click_globe()
+        page = HomePageNotSignedIn(self.browser)
+        self.assertIsInstance(page, HomePageNotSignedIn)
     
-    def test_NavBar_links_signed_in(self):
+    def test_home_link(self):
         '''
-        Sign in and test every link from dashboard page, then log out
+        Home button works correctly
         '''
-        # Log in
-        self.subpage_addr = os.path.join(self.addr, 'sign-in')
-        self.browser.get(self.subpage_addr)
-        self.loginPage = LoginPage(self.browser)
-        self.loginPage.log_in('rsg2703', 'password')
+        self.browser.get(os.path.join(self.addr, 'sign-in'))
+        page = LoginPage(self.browser)
+        page.click_home()
+        page = HomePageNotSignedIn(self.browser)
+        self.assertIsInstance(page, HomePageNotSignedIn)
+    
+    def test_hall_of_fame_link(self):
+        '''
+        Hall of fame button works correctly
+        '''
+        self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_hall_of_fame()
+        page = HallOfFamePageNotSignedIn(self.browser)
+        self.assertIsInstance(page, HallOfFamePageNotSignedIn)
+    
+    def test_about_link(self):
+        '''
+        About button works correctly
+        '''
+        self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_about()
+        page = AboutPageNotSignedIn(self.browser)
+        self.assertIsInstance(page, AboutPageNotSignedIn)
+    
+    def test_players_link(self):
+        '''
+        Players link works correctly
+        '''
+        self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_players()
+        self.browser.implicitly_wait(5)
+        page = PlayersPageNotSignedIn(self.browser)
+        self.assertIsInstance(page, PlayersPageNotSignedIn)
+    
+    def test_sign_in_link(self):
+        '''
+        Sign-in button works correctly
+        '''
+        self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        page = LoginPage(self.browser)
+        self.assertIsInstance(page, LoginPage)
         
-        # Check Universe Gods logo link
-        self.dashboardPage = DashboardPage(self.browser)        
-        self.dashboardPage.click_univ_gods()
-        self.assertIn(self.addr, self.browser.current_url)
-        self.browser.back()
+    def test_dashboard_link(self):
+        '''
+        My Hero button works correctly
+        '''
+        self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        page = LoginPage(self.browser)
+        page.log_in('rsg2703', 'password')
+        page = DashboardPage(self.browser)
+        page.click_home()
+        page = HomePageSignedIn(self.browser)
+        page.click_dashboard()
+        page = DashboardPage(self.browser)
+        self.assertIsInstance(page, DashboardPage)
         
-        # Check globe link
-        self.dashboardPage = DashboardPage(self.browser)
-        self.dashboardPage.click_globe()
-        self.assertIn(self.addr, self.browser.current_url)
-        self.browser.back()
-        
-        # Check "home" link
-        self.dashboardPage = DashboardPage(self.browser)
-        self.dashboardPage.click_home()
-        self.assertIn(self.addr, self.browser.current_url)
-        self.browser.back()
-        
-        # Check "hall of fame" link
-        self.dashboardPage = DashboardPage(self.browser)
-        self.dashboardPage.click_hall_of_fame()
-        self.assertIn('hof', self.browser.current_url)
-        self.browser.back()
-        
-        # Check "about" link
-        self.dashboardPage = DashboardPage(self.browser)        
-        self.dashboardPage.click_about()
-        self.assertIn('about', self.browser.current_url)
-        self.browser.back()
-        
-        # Check "my hero" link
-        self.dashboardPage = DashboardPage(self.browser)        
-        self.dashboardPage.click_dashboard()
-        self.assertIn('dashboard', self.browser.current_url)
-        
-        # Check "logout" link
-        self.dashboardPage = DashboardPage(self.browser)
-        self.dashboardPage.click_logout()
-        self.assertIn(self.addr, self.browser.current_url)
+    def test_logout_link(self):
+        '''
+        Logout button works correctly
+        '''
+        self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        page = LoginPage(self.browser)
+        page.log_in('rsg2703', 'password')
+        page = DashboardPage(self.browser)
+        page.click_logout()
+        page = HomePageNotSignedIn(self.browser)
+        self.assertIsInstance(page, HomePageNotSignedIn)
     
     def tearDown(self):
         self.browser.quit()

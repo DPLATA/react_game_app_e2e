@@ -1,3 +1,4 @@
+import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -7,59 +8,32 @@ from poms.SignInPage import LoginPage
 from poms.DashboardPage import DashboardPage
 from poms.HallOfFamePage import HallOfFamePageNotSignedIn
 
-# mobile_emulation = { "deviceName": "Galaxy S5" }
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
-# driver = webdriver.Remote(command_executor='http://localhost:3000/dashboard',desired_capabilities = chrome_options.to_capabilities())
-
-# chrome_options = Options()
-# chrome_options.add_argument('--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1')
-# driver = webdriver.Chrome(service = ser, options = chrome_options)
-# driver.get('https://www.google.com')
-
-import unittest
-
 class DeviceCompatibilityTests(unittest.TestCase):
     
     def setUp(self):
-        self.service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        self.ser = Service(service)
         self.addr = 'http://localhost:3000'
-        self.ser = Service(self.service)
         self.chrome_options = Options()
-        
-    # def test_random_user_agent(self):
-    #     '''
-    #     '''
-    #     self.ua = UserAgent()
-    #     self.userAgent = self.ua.random
-        
-    #     print(self.userAgent)
-        
-    #     self.chrome_options.add_argument(f'user-agent={self.userAgent}')
-        
-    #     # self.chrome_options.add_argument('--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1')
-    #     self.browser = webdriver.Chrome(service = self.ser, options = self.chrome_options)
-    #     self.browser.get(self.addr)
-        
-    #     self.homePageNotSignedIn = HomePageNotSignedIn(self.browser)
-    #     self.homePageNotSignedIn.click_get_started()
-    #     self.loginPage = LoginPage(self.browser)
-    #     self.loginPage.log_in('rsg2703', 'password')
-    #     self.dashboardPage = DashboardPage(self.browser)
-    #     self.assertIn('dashboard', self.browser.current_url)
     
     def sample_steps(self):
-        self.homePageNotSignedIn = HomePageNotSignedIn(self.browser)
-        self.homePageNotSignedIn.click_signIn()
-        self.loginPage = LoginPage(self.browser)
-        self.loginPage.log_in('rsg2703', 'password')
-        self.dashboardPage = DashboardPage(self.browser)
-        self.dashboardPage.click_logout()
-        self.homePageNotSignedIn = HomePageNotSignedIn(self.browser)
-        self.homePageNotSignedIn.click_hall_of_fame()
-        self.hallOfFamePageNotSignedIn = HallOfFamePageNotSignedIn(self.browser)
+        '''
+        Sign-in and attempt to click logout and hall of fame buttons
+        '''
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        page = LoginPage(self.browser)
+        page.log_in('rsg2703', 'password')
+        page = DashboardPage(self.browser)
+        page.click_logout()
+        page = HomePageNotSignedIn(self.browser)
+        page.click_hall_of_fame()
+        page = HallOfFamePageNotSignedIn(self.browser)
         self.assertIn('hof', self.browser.current_url)
-        
+    
+    '''
+    Test sample steps in different (common) screen sizes
+    '''
     def test_1920x1080_window(self):
         self.chrome_options.add_argument('window-size=1920,1080')
         self.browser = webdriver.Chrome(service = self.ser, options = self.chrome_options)

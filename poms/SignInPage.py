@@ -4,7 +4,6 @@ from poms.Page import PageNotSignedIn
 class SignInPage(PageNotSignedIn):
     
     def __init__(self, browser):
-        
         super().__init__(browser)
         self.toggle_btn = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/div/p/button')
         self.submit_btn = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/div/button')
@@ -18,7 +17,6 @@ class SignInPage(PageNotSignedIn):
 class LoginPage(SignInPage):
     
     def __init__(self, browser):
-        
         super().__init__(browser)
         self.nickname_box = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/input[1]')
         self.password_box = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/input[2]')
@@ -37,11 +35,8 @@ class LoginPage(SignInPage):
 class RegisterPage(SignInPage):
     
     def __init__(self, browser):
-        
         super().__init__(browser)
-        # Switch to register screen
         self.click_toggle()
-        
         self.name_box = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/input[1]')
         self.nickname_box = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/input[2]')
         self.password_box1 = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/input[3]')

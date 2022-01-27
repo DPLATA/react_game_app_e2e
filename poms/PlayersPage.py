@@ -7,26 +7,29 @@ class PlayersPage():
     
     def __init__(self, browser):
         
-        self.reset_search_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/button')
+        self.reset_search_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/div/div/div[2]/button')
         self.status_select = Select(self.browser.find_element(By.XPATH, '//*[@id="status-select"]'))
         self.nickname_box = self.browser.find_element(By.XPATH, '//*[@id="nickname-input"]')
-        
-        self.nav_buttons = self.browser.find_elements(By.XPATH, '//*[@id="root"]/main/section/div[1]/*')
+        self.submit_btn = self.browser.find_element(By.ID, 'submit-query-btn')
+        self.nav_buttons = self.browser.find_elements(By.XPATH,'/html/body/div/main/div/div/div[3]/*')
         
         self.prev_btn = self.nav_buttons[0]
         self.nav_buttons.pop(0)
         self.next_btn = self.nav_buttons[-1]
         self.nav_buttons.pop(-1)
-        
-        # Assign each button correctly            
         if len(self.nav_buttons) > 5:
             for btn in self.nav_buttons:
                 if btn.text == '...':
                     self.nav_buttons.remove(btn)
         
-        self.submit_btn = self.browser.find_element(By.XPATH, '//*[@id="submit-query-btn"]')
-        self.prev_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/div[1]/button[1]')
-    
+        rows = self.browser.find_elements(By.XPATH, '/html/body/div/main/div/div/div[1]/table/tbody/*')
+        self.table_data = []
+        for row in rows:
+            row = row.text.split()
+            self.table_data.append({'Nickname': row[0], 'Name': row[1],
+                                    'Ranking': row[2], 'Status': row[3],
+                                    'Player ID': row[4]})
+        
     def click_reset(self):
         self.reset_search_btn.click()
         
@@ -55,6 +58,13 @@ class PlayersPage():
     def click_random_num(self):
         num = np.random.randint(0, len(self.nav_buttons))
         self.click_num_btn(num)
+    
+    def look_up_player(self, username):
+        self.type_nickname(username)
+        self.click_submit()
+    
+    def num_players_shown(self):
+        return len(self.table_data)
     
 class PlayersPageNotSignedIn(PageNotSignedIn, PlayersPage):
     
