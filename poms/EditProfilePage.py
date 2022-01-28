@@ -5,15 +5,15 @@ class EditProfilePage(PageSignedIn):
     
     def __init__(self, browser):
         super().__init__(browser)
-        self.name_box = self.browser.find_element(By.XPATH, '//*[@id="update-from"]/input[1]')
-        self.nickname_box = self.browser.find_element(By.XPATH, '//*[@id="update-from"]/input[2]')
+        self.name_box = self.browser.find_element(By.ID, 'nameBox')
+        self.nickname_box = self.browser.find_element(By.ID, 'nicknameBox')
         self.avatar_btn_1 = self.browser.find_element(By.XPATH, '//*[@id="https://robohash.org/eteosqui.png?size=300x300&set=set1"]')
         self.avatar_btn_2 = self.browser.find_element(By.XPATH, '//*[@id="https://robohash.org/adnesciuntconsequatur.png?size=300x300&set=set1"]')
         self.avatar_btn_3 = self.browser.find_element(By.XPATH, '//*[@id="https://robohash.org/sequisimiliquepraesentium.png?size=300x300&set=set1"]')
         self.avatar_btn_4 = self.browser.find_element(By.XPATH, '//*[@id="https://robohash.org/eamollitiadolores.png?size=300x300&set=set1"]')
         self.avatar_btn_5 = self.browser.find_element(By.XPATH, '//*[@id="https://robohash.org/nihilconsequaturet.png?size=300x300&set=set1"]')
-        self.update_btn = self.browser.find_element(By.XPATH, '//*[@id="update-from"]/button')
-        self.profile_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/section/a')
+        self.update_btn = self.browser.find_element(By.ID, 'updateBtn')
+        self.profile_btn = self.browser.find_element(By.ID, 'profileBtn')
         
     def type_name(self, name):
         self.name_box.clear()

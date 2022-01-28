@@ -4,22 +4,26 @@ from selenium.webdriver.chrome.service import Service
 import os
 import json
 import numpy as np
+from poms.HomePage import HomePageNotSignedIn
 from poms.SignInPage import LoginPage
 from poms.DashboardPage import DashboardPage
 
 class SignInTests(unittest.TestCase):
     
     def setUp(self):
-        service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        service = r'C:\Users\Rafael\Documents\Projects\Universe Gods\react_game_app_e2e\chromedriver.exe'
         ser = Service(service)
         self.browser = webdriver.Chrome(service = ser)
-        self.addr = 'http://localhost:3000/sign-in'
+        self.addr = 'http://18.209.14.86'
         
     def test_sign_in_no_username(self):
         '''
         Attempt to sign-in without username
         '''
         self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        self.browser.implicitly_wait(1)
         page = LoginPage(self.browser)
         page.log_in('', 'password')
         self.assertIn('sign-in', self.browser.current_url)
@@ -29,6 +33,9 @@ class SignInTests(unittest.TestCase):
         Attempt to sign-in without password
         '''
         self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        self.browser.implicitly_wait(1)
         page = LoginPage(self.browser)
         page.log_in('rsg2703', '')
         self.assertIn('sign-in', self.browser.current_url)    
@@ -38,6 +45,9 @@ class SignInTests(unittest.TestCase):
         Attempt to sign-in without username nor password
         '''
         self.browser.get(self.addr)
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        self.browser.implicitly_wait(1)
         page = LoginPage(self.browser)
         page.log_in('', '')
         self.assertIn('sign-in', self.browser.current_url)
@@ -58,6 +68,9 @@ class SignInTests(unittest.TestCase):
             password = user['password']
             
             self.browser.get(self.addr)
+            page = HomePageNotSignedIn(self.browser)
+            page.click_signIn()
+            self.browser.implicitly_wait(1)
             page = LoginPage(self.browser)
             page.log_in(username, password)
             page = DashboardPage(self.browser)
