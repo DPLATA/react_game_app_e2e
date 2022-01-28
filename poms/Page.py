@@ -6,7 +6,7 @@ class Page():
     
     def __init__(self, browser):
         self.browser = browser
-        self.navbar_logo = self.browser.find_element(By.XPATH, '//*[@id="Navbar"]/div/a')
+        self.navbar_logo = self.browser.find_element(By.XPATH, '/html/body/div/nav/div/a')
         self.navbar_globe = self.browser.find_element(By.XPATH, '//*[@id="Navbar"]/div/a/i')
         self.home_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/nav/div/ul/li[1]/a')
         self.hof_btn = self.browser.find_element(By.XPATH, '//*[@id="Navbar"]/div/ul/li[2]/a')

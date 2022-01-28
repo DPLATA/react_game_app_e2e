@@ -1,6 +1,7 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from poms.HomePage import HomePageNotSignedIn
 from poms.SignInPage import LoginPage, RegisterPage
 from poms.DashboardPage import DashboardPage
 import time
@@ -11,16 +12,19 @@ import json
 class RegisterUserTests(unittest.TestCase):
     
     def setUp(self):
-        service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        service = r'C:\Users\Rafael\Documents\Projects\Universe Gods\react_game_app_e2e\chromedriver.exe'
         ser = Service(service)
         self.browser = webdriver.Chrome(service = ser)
-        addr = 'http://localhost:3000/sign-in'
+        addr = 'http://18.209.14.86'
         self.browser.get(addr)
         
     def test_register_new_user(self):
         '''
         Attempt to register new user (correctly)
         '''
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        self.browser.implicitly_wait(1)
         page = RegisterPage(self.browser)
         unique_user = str(time.time())
         page.register_user('Test', unique_user, 'password')
@@ -31,6 +35,9 @@ class RegisterUserTests(unittest.TestCase):
         '''
         Attempt to register without passwords matching
         '''
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        self.browser.implicitly_wait(1)
         page = RegisterPage(self.browser)
         unique_user = str(time.time())
         page.register_user_diff_passwords('Test', unique_user, 'password')
@@ -45,6 +52,9 @@ class RegisterUserTests(unittest.TestCase):
         user_data2 = json.load(open(os.path.join(data_path, 'MOCK_DATA-2.json')))
         user_data3 = json.load(open(os.path.join(data_path, 'MOCK_DATA-3.json')))
         user_data = user_data1 + user_data2 + user_data3
+        page = HomePageNotSignedIn(self.browser)
+        page.click_signIn()
+        self.browser.implicitly_wait(1)
         page = RegisterPage(self.browser)
         random_pick = np.random.randint(0, len(user_data))
         nickname = user_data[random_pick]['nickname']

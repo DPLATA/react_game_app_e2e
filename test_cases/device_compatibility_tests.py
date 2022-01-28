@@ -2,7 +2,6 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from fake_useragent import UserAgent
 from poms.HomePage import HomePageNotSignedIn
 from poms.SignInPage import LoginPage
 from poms.DashboardPage import DashboardPage
@@ -11,9 +10,9 @@ from poms.HallOfFamePage import HallOfFamePageNotSignedIn
 class DeviceCompatibilityTests(unittest.TestCase):
     
     def setUp(self):
-        service = r"C:\Users\Rafael\Documents\Reesby\Projects\Web scraping\chromedriver.exe"
+        service = r'C:\Users\Rafael\Documents\Projects\Universe Gods\react_game_app_e2e\chromedriver.exe'
         self.ser = Service(service)
-        self.addr = 'http://localhost:3000'
+        self.addr = 'http://18.209.14.86'
         self.chrome_options = Options()
     
     def sample_steps(self):

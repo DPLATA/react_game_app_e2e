@@ -5,7 +5,7 @@ class SignInPage(PageNotSignedIn):
     
     def __init__(self, browser):
         super().__init__(browser)
-        self.toggle_btn = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/div/p/button')
+        self.toggle_btn = browser.find_element(By.ID, 'toggle-forms')
         self.submit_btn = browser.find_element(By.XPATH, '//*[@id="root"]/main/div/section/form/div/button')
         
     def click_toggle(self):

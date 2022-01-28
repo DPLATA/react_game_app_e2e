@@ -6,12 +6,13 @@ from poms.Page import PageNotSignedIn, PageSignedIn
 class PlayersPage():
     
     def __init__(self, browser):
-        
-        self.reset_search_btn = self.browser.find_element(By.XPATH, '//*[@id="root"]/main/div/div/div[2]/button')
-        self.status_select = Select(self.browser.find_element(By.XPATH, '//*[@id="status-select"]'))
-        self.nickname_box = self.browser.find_element(By.XPATH, '//*[@id="nickname-input"]')
+        self.reset_search_btn = self.browser.find_element(By.XPATH, '/html/body/div/main/div/div/div[4]/button')
+        self.status_select = Select(self.browser.find_element(By.ID, 'status-select'))
+        self.nickname_box = self.browser.find_element(By.ID, 'nickname-input')
         self.submit_btn = self.browser.find_element(By.ID, 'submit-query-btn')
-        self.nav_buttons = self.browser.find_elements(By.XPATH,'/html/body/div/main/div/div/div[3]/*')
+        # self.nav_buttons = self.browser.find_elements(By.XPATH,'/html/body/div/main/div/div/div[5]/*')
+        self.nav_buttons = self.browser.find_elements(By.XPATH, '//*[@id="pagination-btns"]/*')
+        # findElements(By. xpath("//[@id='Container']//*")
         
         self.prev_btn = self.nav_buttons[0]
         self.nav_buttons.pop(0)
@@ -22,7 +23,7 @@ class PlayersPage():
                 if btn.text == '...':
                     self.nav_buttons.remove(btn)
         
-        rows = self.browser.find_elements(By.XPATH, '/html/body/div/main/div/div/div[1]/table/tbody/*')
+        rows = self.browser.find_elements(By.XPATH, '//*[@id="root"]/main/div/div/div[3]/table/tbody/*')
         self.table_data = []
         for row in rows:
             row = row.text.split()
